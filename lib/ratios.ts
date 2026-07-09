@@ -26,8 +26,8 @@ export const RATIOS: Record<RatioId, RatioSpec> = {
     id: "wallpaper",
     label: "手机壁纸",
     labelEn: "Phone",
-    width: 1290, // iPhone 15 Pro class, 9 : 19.5
-    height: 2796,
+    width: 1290, // iPhone 15 Pro class
+    height: 2796, // 9 : 19.5
     orientation: "tall",
   },
   story: {

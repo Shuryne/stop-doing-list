@@ -61,7 +61,7 @@ export type CardState = {
 export type TemplateProps = {
   data: StopDoingListData;
   ratio: RatioId;
-  /** Active UI locale — drives the localized eyebrow each template renders. */
+  /** Active UI locale — drives the localized seal/chop each template renders. */
   locale: Locale;
   /** Global alignment override (see TextAlign). */
   align: TextAlign;

@@ -34,7 +34,7 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
  *
  * The node is expected to already be laid out at its native pixel size (e.g.
  * 1290×2796) — the on-screen preview scales it with a CSS transform on an
- * ancestor, which html-to-image ignores, so the capture is full resolution.
+ * ancestor, which modern-screenshot ignores, so the capture is full resolution.
  */
 export async function exportNodeToPng(
   node: HTMLElement,
