@@ -1,17 +1,22 @@
 import type { CSSProperties } from "react";
 import type { TemplateProps } from "@/lib/types";
 import { sealStyle } from "@/lib/style";
-import { templateModel, TemplateShell } from "./shared";
+import {
+  posterInner,
+  posterItemsWrap,
+  templateModel,
+  TemplateFooter,
+  TemplateHeader,
+  TemplateShell,
+} from "./shared";
 
 /**
  * 「格 Grid」— Swiss / International Typographic style.
  * Heavy sans-serif, strong alignment, numbered rows with hairline rules,
- * cinnabar index numbers. Reads only --sdl-* tokens.
+ * cinnabar index numbers. Reads --sdl-* design tokens (plus --font-* families).
  */
 export function GridTemplate(props: TemplateProps) {
   const { data } = props;
-  // `showSeal` drops the stamp when it echoes the title, so a "Stop Doing List"
-  // title isn't stamped twice.
   const { items, m, a, flex, date, showFooter, sealText, showSeal } =
     templateModel(props, "left");
   const rowPad = Math.round(m.itemGap * 0.55);
@@ -31,12 +36,7 @@ export function GridTemplate(props: TemplateProps) {
     fontFamily: "var(--font-sans)",
   };
 
-  const inner: CSSProperties = {
-    width: m.contentWidth,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  };
+  const inner = posterInner(m.contentWidth);
 
   // Grid is Swiss/sans, so the chop drops the serif to stay in the family.
   const seal: CSSProperties = {
@@ -60,14 +60,7 @@ export function GridTemplate(props: TemplateProps) {
     margin: `${Math.round(m.itemGap * 0.9)}px 0 0`,
   };
 
-  const itemsWrap: CSSProperties = {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    overflow: "hidden",
-  };
+  const itemsWrap = posterItemsWrap();
 
   const list: CSSProperties = {
     listStyle: "none",
@@ -119,20 +112,21 @@ export function GridTemplate(props: TemplateProps) {
       root={root}
       inner={inner}
       header={
-        <div style={{ flexShrink: 0, textAlign: a }}>
-          {showSeal && <div style={seal}>{sealText}</div>}
-          {data.title.trim() && <h1 style={title}>{data.title}</h1>}
-          <div style={topRule} />
-        </div>
+        <TemplateHeader
+          style={{ flexShrink: 0, textAlign: a }}
+          sealStyle={seal}
+          sealText={sealText}
+          showSeal={showSeal}
+          title={data.title}
+          titleStyle={title}
+          divider={<div style={topRule} />}
+        />
       }
       itemsWrap={itemsWrap}
       list={list}
       footer={
         showFooter && (
-          <div style={footer}>
-            <span>{date}</span>
-            <span>{data.signature}</span>
-          </div>
+          <TemplateFooter style={footer} date={date} signature={data.signature} />
         )
       }
     >

@@ -1,7 +1,14 @@
 import type { CSSProperties } from "react";
 import type { TemplateProps } from "@/lib/types";
 import { sealStyle } from "@/lib/style";
-import { templateModel, TemplateShell } from "./shared";
+import {
+  posterInner,
+  posterItemsWrap,
+  templateModel,
+  TemplateFooter,
+  TemplateHeader,
+  TemplateShell,
+} from "./shared";
 
 /**
  * 「暮 Dusk」— ambient, glow-lit poster.
@@ -31,17 +38,12 @@ export function DuskTemplate(props: TemplateProps) {
     fontFamily: "var(--font-serif)",
   };
 
-  const inner: CSSProperties = {
-    // No alignItems here: children must stretch to the full content width so
-    // the list's percentage maxWidth resolves against a definite box. Aligning
-    // here would shrink-to-fit each child, collapsing the list's available
-    // width and forcing otherwise-single lines to wrap. Each child aligns its
-    // own content via `flex` below.
-    width: m.contentWidth,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  };
+  // No alignItems on inner: children must stretch to the full content width so
+  // the list's percentage maxWidth resolves against a definite box. Aligning
+  // here would shrink-to-fit each child, collapsing the list's available width
+  // and forcing otherwise-single lines to wrap. Each child aligns its own
+  // content via `flex` below. (posterInner intentionally omits alignItems.)
+  const inner = posterInner(m.contentWidth);
 
   const seal = sealStyle(Math.round(m.titleSize * 0.54), a, "filled");
 
@@ -61,15 +63,7 @@ export function DuskTemplate(props: TemplateProps) {
     margin: `${Math.round(m.itemGap * 1.2)}px 0`,
   };
 
-  const itemsWrap: CSSProperties = {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: flex,
-    overflow: "hidden",
-  };
+  const itemsWrap = posterItemsWrap(flex);
 
   const list: CSSProperties = {
     listStyle: "none",
@@ -108,27 +102,31 @@ export function DuskTemplate(props: TemplateProps) {
       root={root}
       inner={inner}
       header={
-        <div
+        <TemplateHeader
           style={{
             flexShrink: 0,
             display: "flex",
             flexDirection: "column",
             alignItems: flex,
           }}
-        >
-          {showSeal && <div style={seal}>{sealText}</div>}
-          {data.title.trim() && <h1 style={title}>{data.title}</h1>}
-          <div style={dot} />
-        </div>
+          sealStyle={seal}
+          sealText={sealText}
+          showSeal={showSeal}
+          title={data.title}
+          titleStyle={title}
+          divider={<div style={dot} />}
+        />
       }
       itemsWrap={itemsWrap}
       list={list}
       footer={
         showFooter && (
-          <div style={footer}>
-            {data.signature.trim() && <span>{data.signature}</span>}
-            <span>{date}</span>
-          </div>
+          <TemplateFooter
+            style={footer}
+            date={date}
+            signature={data.signature}
+            reverse
+          />
         )
       }
     >

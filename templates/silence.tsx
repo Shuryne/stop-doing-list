@@ -1,12 +1,20 @@
 import type { CSSProperties } from "react";
 import type { TemplateProps } from "@/lib/types";
 import { barMarginX, sealStyle } from "@/lib/style";
-import { templateModel, TemplateShell } from "./shared";
+import {
+  posterInner,
+  posterItemsWrap,
+  templateModel,
+  TemplateFooter,
+  TemplateHeader,
+  TemplateShell,
+} from "./shared";
 
 /**
  * 「静默 Silence」— minimalist black & white.
  * Big serif title, generous whitespace, a cinnabar ✕ as the "stop" mark.
- * Reads only --sdl-* tokens, so it renders identically in light/dark.
+ * Reads --sdl-* design tokens (plus --font-* families), so light/dark adapt
+ * automatically.
  */
 export function SilenceTemplate(props: TemplateProps) {
   const { data } = props;
@@ -27,12 +35,7 @@ export function SilenceTemplate(props: TemplateProps) {
     overflow: "hidden",
   };
 
-  const inner: CSSProperties = {
-    width: m.contentWidth,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  };
+  const inner = posterInner(m.contentWidth);
 
   const seal = sealStyle(Math.round(m.titleSize * 0.54), a, "outline");
 
@@ -54,14 +57,7 @@ export function SilenceTemplate(props: TemplateProps) {
     ...barMarginX(a),
   };
 
-  const itemsWrap: CSSProperties = {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    overflow: "hidden",
-  };
+  const itemsWrap = posterItemsWrap();
 
   const list: CSSProperties = {
     display: "flex",
@@ -115,20 +111,21 @@ export function SilenceTemplate(props: TemplateProps) {
       root={root}
       inner={inner}
       header={
-        <div style={{ flexShrink: 0, textAlign: a }}>
-          {showSeal && <div style={seal}>{sealText}</div>}
-          {data.title.trim() && <h1 style={title}>{data.title}</h1>}
-          <div style={rule} />
-        </div>
+        <TemplateHeader
+          style={{ flexShrink: 0, textAlign: a }}
+          sealStyle={seal}
+          sealText={sealText}
+          showSeal={showSeal}
+          title={data.title}
+          titleStyle={title}
+          divider={<div style={rule} />}
+        />
       }
       itemsWrap={itemsWrap}
       list={list}
       footer={
         showFooter && (
-          <div style={footer}>
-            <span>{date}</span>
-            <span>{data.signature}</span>
-          </div>
+          <TemplateFooter style={footer} date={date} signature={data.signature} />
         )
       }
     >

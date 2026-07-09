@@ -42,17 +42,126 @@ export function templateModel(
   const m = templateMetrics(ratio, items, SCALE_FACTOR[scale]);
   const a = resolveAlign(align, nativeAlign);
   const sealText = getDictionary(locale).seal;
+  const date = formatDateDot(data.date);
   return {
     items,
     m,
     a,
     flex: FLEX_ALIGN[a],
-    date: formatDateDot(data.date),
-    showFooter: Boolean(formatDateDot(data.date) || data.signature.trim()),
+    date,
+    showFooter: Boolean(date || data.signature.trim()),
     sealText,
     showSeal:
       data.title.trim().toLowerCase() !== sealText.trim().toLowerCase(),
   };
+}
+
+/**
+ * The fixed-width content column every template centers its poster content in.
+ * A purely structural style (no color/type), shared so the four templates can't
+ * drift on the column geometry; a template spreads it and adds its own extras
+ * (e.g. Ink layers `position: relative` for its absolute watermark).
+ */
+export function posterInner(contentWidth: number): CSSProperties {
+  return {
+    width: contentWidth,
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  };
+}
+
+/**
+ * The vertically-centered, overflow-clipped zone the items list fills — the
+ * `flex: 1` middle of the three-zone column, between header and footer. Pass
+ * `alignItems` when the template also aligns the list block itself (e.g. Dusk).
+ */
+export function posterItemsWrap(
+  alignItems?: CSSProperties["alignItems"],
+): CSSProperties {
+  return {
+    flex: 1,
+    minHeight: 0,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    overflow: "hidden",
+    ...(alignItems !== undefined ? { alignItems } : {}),
+  };
+}
+
+/**
+ * The header block every template renders: an optional cinnabar seal, the
+ * optional title, then a divider (each template's own rule/dot). The seal- and
+ * title-visibility guards live here so the four templates can't re-type them
+ * inconsistently; only `style` (the container) and `divider` vary by template.
+ */
+export function TemplateHeader({
+  style,
+  sealStyle,
+  sealText,
+  showSeal,
+  title,
+  titleStyle,
+  divider,
+}: {
+  style: CSSProperties;
+  sealStyle: CSSProperties;
+  sealText: string;
+  showSeal: boolean;
+  title: string;
+  titleStyle: CSSProperties;
+  divider: ReactNode;
+}) {
+  return (
+    <div style={style}>
+      {showSeal && <div style={sealStyle}>{sealText}</div>}
+      {title.trim() && <h1 style={titleStyle}>{title}</h1>}
+      {divider}
+    </div>
+  );
+}
+
+/**
+ * The footer block: the date and the optional signature. The signature-visible
+ * guard (drop it when blank) is centralized here. `reverse` swaps the order
+ * (Dusk leads with the signature); `dateStyle`/`signatureStyle` let a template
+ * style each span (Ink stamps the signature as a seal).
+ */
+export function TemplateFooter({
+  style,
+  date,
+  signature,
+  reverse = false,
+  dateStyle,
+  signatureStyle,
+}: {
+  style: CSSProperties;
+  date: string;
+  signature: string;
+  reverse?: boolean;
+  dateStyle?: CSSProperties;
+  signatureStyle?: CSSProperties;
+}) {
+  const dateEl = <span style={dateStyle}>{date}</span>;
+  const signatureEl = signature.trim() ? (
+    <span style={signatureStyle}>{signature}</span>
+  ) : null;
+  return (
+    <div style={style}>
+      {reverse ? (
+        <>
+          {signatureEl}
+          {dateEl}
+        </>
+      ) : (
+        <>
+          {dateEl}
+          {signatureEl}
+        </>
+      )}
+    </div>
+  );
 }
 
 /**

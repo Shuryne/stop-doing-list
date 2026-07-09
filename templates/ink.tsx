@@ -1,16 +1,22 @@
 import type { CSSProperties } from "react";
 import type { TemplateProps } from "@/lib/types";
 import { barMarginX, sealStyle } from "@/lib/style";
-import { templateModel, TemplateShell } from "./shared";
+import {
+  posterInner,
+  posterItemsWrap,
+  templateModel,
+  TemplateFooter,
+  TemplateHeader,
+  TemplateShell,
+} from "./shared";
 
 /**
  * 「墨 Ink」— Eastern ink aesthetic.
  * Faint 「止」(stop) watermark, subtle paper vignette, a cinnabar seal as the
- * signature stamp. Reads only --sdl-* tokens.
+ * signature stamp. Reads --sdl-* design tokens (plus --font-* families).
  */
 export function InkTemplate(props: TemplateProps) {
   const { data } = props;
-  // `showSeal` here hides the stamp when it would just repeat the title.
   const { items, m, a, flex, date, showFooter, sealText, showSeal } =
     templateModel(props, "left");
 
@@ -44,12 +50,10 @@ export function InkTemplate(props: TemplateProps) {
     pointerEvents: "none",
   };
 
+  // position: relative so the watermark (an absolute backdrop) clips to the column.
   const inner: CSSProperties = {
+    ...posterInner(m.contentWidth),
     position: "relative",
-    width: m.contentWidth,
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
   };
 
   const stamp = sealStyle(Math.round(m.titleSize * 0.54), a, "filled");
@@ -71,14 +75,7 @@ export function InkTemplate(props: TemplateProps) {
     ...barMarginX(a),
   };
 
-  const itemsWrap: CSSProperties = {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    overflow: "hidden",
-  };
+  const itemsWrap = posterItemsWrap();
 
   const list: CSSProperties = {
     display: "flex",
@@ -152,22 +149,27 @@ export function InkTemplate(props: TemplateProps) {
       inner={inner}
       backdrop={<div style={watermark}>止</div>}
       header={
-        <div style={{ flexShrink: 0, textAlign: a }}>
-          {showSeal && <div style={stamp}>{sealText}</div>}
-          {data.title.trim() && <h1 style={title}>{data.title}</h1>}
-          <div style={rule} />
-        </div>
+        <TemplateHeader
+          style={{ flexShrink: 0, textAlign: a }}
+          sealStyle={stamp}
+          sealText={sealText}
+          showSeal={showSeal}
+          title={data.title}
+          titleStyle={title}
+          divider={<div style={rule} />}
+        />
       }
       itemsWrap={itemsWrap}
       list={list}
       footer={
         showFooter && (
-          <div style={footer}>
-            <span style={dateText}>{date}</span>
-            {data.signature.trim() && (
-              <span style={seal}>{data.signature}</span>
-            )}
-          </div>
+          <TemplateFooter
+            style={footer}
+            date={date}
+            signature={data.signature}
+            dateStyle={dateText}
+            signatureStyle={seal}
+          />
         )
       }
     >
