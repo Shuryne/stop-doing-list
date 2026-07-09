@@ -53,4 +53,6 @@ Thumbs.db
 *.log
 
 # claude code (local agent state)
-.claude/*
+.claude
+AGENTS.md
+CLAUDE.md
