@@ -70,7 +70,7 @@ PRs welcome.
 
 ### 🖋 Credits
 
-The logo is a cinnabar seal of the character 「止」 (*stop*). The glyph is drawn from the open-source font **Zhi Mang Xing / 志莽行书** (© 2018 The Zhi Mang Xing Project Authors, [SIL OFL 1.1](https://scripts.sil.org/OFL)) — only that single character is **traced into a static vector path** embedded in the icon; the font itself is not bundled. See [`NOTICE`](NOTICE).
+The logo is a cinnabar seal of the character 「止」 (*stop*). The glyph is drawn from the open-source font **Zhi Mang Xing / 志莽行书** (© 2018 The Zhi Mang Xing Project Authors, [SIL OFL 1.1](https://scripts.sil.org/OFL)) — only that single character is **traced into a static vector path** embedded in the icon; the font itself is not bundled.
 
 ### 📄 License
 
@@ -144,7 +144,7 @@ pnpm lint       # ESLint
 
 ### 🖋 致谢
 
-Logo 是一枚朱砂印「止」。印中的「止」字取自开源字体 **志莽行书 / Zhi Mang Xing**（© 2018 The Zhi Mang Xing Project Authors，[SIL OFL 1.1](https://scripts.sil.org/OFL)），仅将该单字**描成静态矢量路径**嵌入图标，未打包字体本体。详见 [`NOTICE`](NOTICE)。
+Logo 是一枚朱砂印「止」。印中的「止」字取自开源字体 **志莽行书 / Zhi Mang Xing**（© 2018 The Zhi Mang Xing Project Authors，[SIL OFL 1.1](https://scripts.sil.org/OFL)），仅将该单字**描成静态矢量路径**嵌入图标，未打包字体本体。
 
 ### 📄 License
 
