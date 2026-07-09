@@ -68,15 +68,6 @@ Templates are pluggable components — a new template is one file plus one line 
 
 PRs welcome.
 
-### 🗺 Roadmap
-
-- [x] Four templates (Silence / Ink / Grid / Dusk)
-- [x] Shareable links with content encoded in the URL + dynamic OG preview
-- [x] All ratios (Phone / Story / Poster / Square / Desktop) with adaptive layout
-- [x] Full English / 中文 i18n with in-app switch
-- [ ] Quote preset library ("stop doing" quotes from Duan Yongping / Buffett / Munger)
-- [ ] Self-hosted **subsetted CJK fonts** for consistent exports across systems (Chinese currently falls back to system fonts)
-
 ### 🖋 Credits
 
 The logo is a cinnabar seal of the character 「止」 (*stop*). The glyph is drawn from the open-source font **Zhi Mang Xing / 志莽行书** (© 2018 The Zhi Mang Xing Project Authors, [SIL OFL 1.1](https://scripts.sil.org/OFL)) — only that single character is **traced into a static vector path** embedded in the icon; the font itself is not bundled. See [`NOTICE`](NOTICE).
@@ -150,15 +141,6 @@ pnpm lint       # ESLint
 3. 在 [`templates/registry.ts`](templates/registry.ts) 里注册。
 
 欢迎 PR。
-
-### 🗺 路线图
-
-- [x] 四套模板（静默 / 墨 / 格 / 暮）
-- [x] 内容编码进 URL 的分享链接 + 动态 OG 预览图
-- [x] 全部比例（手机壁纸 / Story / 海报 3:4 / 方图 / 桌面壁纸）+ 模板自适应
-- [x] 完整中 / EN 国际化，应用内一键切换
-- [ ] 语录预设库（段永平 / 巴菲特 / 芒格的「不做」名言）
-- [ ] 自托管**子集化 CJK 字体**，让导出在不同系统上视觉一致（当前中文回退到系统字体）
 
 ### 🖋 致谢
 
