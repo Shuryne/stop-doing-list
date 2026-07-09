@@ -69,7 +69,7 @@ export type TemplateProps = {
   scale: TypeScale;
 };
 
-/** A registered template — adding one is adding a file + a registry entry. */
+/** A registered template — adding one is a file + a TEMPLATE_IDS id + a registry entry. */
 export type TemplateMeta = {
   id: TemplateId;
   /** Chinese display name. */
