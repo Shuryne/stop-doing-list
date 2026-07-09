@@ -6,6 +6,8 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { SAMPLE_ITEMS } from "@/lib/sample";
 import { SDL_TOKENS } from "@/lib/theme-tokens";
 import { OG_IMAGE_SIZE, PRODUCT_NAME, SITE_HOST } from "@/lib/site";
+import { DEFAULT_CARD } from "@/lib/defaults";
+import { FLEX_ALIGN, resolveAlign } from "@/lib/style";
 import type { ResolvedAlign, TextAlign } from "@/lib/types";
 
 // Node runtime so we can fetch the (subsetted) CJK font at request time.
@@ -20,15 +22,16 @@ export const runtime = "nodejs";
  * as the app, so a shared light card no longer produces a dark OG image.
  */
 
-/** Card the OG image shows for a bare link (no `?d=` share code). */
+/**
+ * Card the OG image shows for a bare link (no `?d=` share code). Inherits the
+ * shared app defaults, but overrides the theme to dark — a bare social embed
+ * reads better dark than the app's light default.
+ */
 function defaultCard(locale: Locale): ShareState {
   return {
-    data: { title: PRODUCT_NAME, items: SAMPLE_ITEMS[locale], signature: "", date: "" },
-    template: "silence",
-    ratio: "wallpaper",
+    ...DEFAULT_CARD,
     theme: "dark",
-    align: "auto",
-    scale: "normal",
+    data: { title: PRODUCT_NAME, items: SAMPLE_ITEMS[locale], signature: "", date: "" },
   };
 }
 
@@ -39,8 +42,8 @@ function moreLabel(locale: Locale, extra: number): string {
 
 /** Resolve the global alignment (OG is designed left-aligned) to flex + text. */
 function resolve(align: TextAlign): { align: ResolvedAlign; flex: string } {
-  const a: ResolvedAlign = align === "auto" ? "left" : align;
-  return { align: a, flex: a === "center" ? "center" : a === "right" ? "flex-end" : "flex-start" };
+  const a = resolveAlign(align, "left");
+  return { align: a, flex: FLEX_ALIGN[a] };
 }
 
 /**
