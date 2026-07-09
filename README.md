@@ -60,10 +60,10 @@ pnpm lint       # ESLint
 
 ### 🎨 Add a template
 
-Templates are pluggable components — a new template is one file plus one line of registration:
+Templates are pluggable components:
 
-1. Create `your-template.tsx` under [`templates/`](templates/) exporting a `ComponentType<TemplateProps>` (see [`silence.tsx`](templates/silence.tsx)).
-2. Read only the `--sdl-*` design variables (see [`app/globals.css`](app/globals.css)) so light/dark adapt automatically.
+1. Create `your-template.tsx` under [`templates/`](templates/) exporting a `ComponentType<TemplateProps>` (see [`silence.tsx`](templates/silence.tsx)). Read only the `--sdl-*` design variables (see [`app/globals.css`](app/globals.css)) so light/dark adapt automatically.
+2. Add its id to `TEMPLATE_IDS` in [`lib/types.ts`](lib/types.ts) — this is what the `TemplateId` union is derived from.
 3. Register it in [`templates/registry.ts`](templates/registry.ts).
 
 PRs welcome.
@@ -130,10 +130,10 @@ pnpm lint       # ESLint
 
 ### 🎨 贡献一个模板
 
-模板是可插拔组件，加一个模板 = 加一个文件 + 注册一行：
+模板是可插拔组件：
 
-1. 在 [`templates/`](templates/) 下新建 `your-template.tsx`，导出一个 `ComponentType<TemplateProps>`（参考 [`silence.tsx`](templates/silence.tsx)）。
-2. 只读 `--sdl-*` 设计变量（见 [`app/globals.css`](app/globals.css)），这样浅色/深色都能自动适配。
+1. 在 [`templates/`](templates/) 下新建 `your-template.tsx`，导出一个 `ComponentType<TemplateProps>`（参考 [`silence.tsx`](templates/silence.tsx)）。只读 `--sdl-*` 设计变量（见 [`app/globals.css`](app/globals.css)），这样浅色/深色都能自动适配。
+2. 把新 id 加进 [`lib/types.ts`](lib/types.ts) 的 `TEMPLATE_IDS`——`TemplateId` 联合类型由它推导而来。
 3. 在 [`templates/registry.ts`](templates/registry.ts) 里注册。
 
 欢迎 PR。
