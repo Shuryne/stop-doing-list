@@ -1,0 +1,20 @@
+Stop Doing List — third-party notices
+======================================
+
+Logo / app icons
+----------------
+The app icon (a cinnabar 印 seal bearing the character 「止」, "stop") is an
+original mark. The single glyph 「止」 was outlined into a static vector path
+from the following open-source font; no font software is bundled or shipped in
+the app — only the resulting outline of that one character is embedded in the
+SVG/PNG/ICO assets under `app/` and `public/`.
+
+  Zhi Mang Xing (志莽行书)
+  Copyright 2018 The Zhi Mang Xing Project Authors
+  https://github.com/googlefonts/zhimangxing
+  Licensed under the SIL Open Font License, Version 1.1
+  https://scripts.sil.org/OFL
+
+The SIL Open Font License permits use, study, modification and redistribution
+of the font and of documents/outlines produced with it, including for
+commercial purposes.
