@@ -77,8 +77,11 @@ export function Studio() {
 
       {/* ---- Desktop content drawer ---- */}
       <aside
-        className="absolute inset-y-0 left-0 z-20 hidden w-[360px] flex-col border-r border-border/70 bg-[#f7f5f0] shadow-[8px_0_40px_-24px_rgba(0,0,0,0.35)] transition-transform duration-300 ease-out lg:flex"
-        style={{ transform: open ? "translateX(0)" : `translateX(-${PANEL_W}px)` }}
+        className="absolute inset-y-0 left-0 z-20 hidden flex-col border-r border-border/70 bg-[#f7f5f0] shadow-[8px_0_40px_-24px_rgba(0,0,0,0.35)] transition-transform duration-300 ease-out lg:flex"
+        style={{
+          width: PANEL_W,
+          transform: open ? "translateX(0)" : `translateX(-${PANEL_W}px)`,
+        }}
         aria-hidden={!open}
       >
         <ContentPanel dndId="stop-doing-desktop" />

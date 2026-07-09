@@ -27,7 +27,6 @@ export async function generateMetadata({
 export default async function Home({
   searchParams,
 }: {
-  params: Params;
   searchParams: SearchParams;
 }) {
   const { d } = await searchParams;

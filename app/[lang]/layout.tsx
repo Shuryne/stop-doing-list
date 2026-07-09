@@ -3,12 +3,7 @@ import { notFound } from "next/navigation";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { I18nProvider } from "@/lib/i18n/provider";
-import {
-  htmlLang,
-  hasLocale,
-  locales,
-  type Locale,
-} from "@/lib/i18n/config";
+import { htmlLang, hasLocale, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { OG_IMAGE_SIZE, PRODUCT_NAME, SITE_URL } from "@/lib/site";
 import "../globals.css";
@@ -75,7 +70,7 @@ export default async function RootLayout({
 }) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
-  const locale = lang as Locale;
+  const locale = lang;
 
   return (
     <html

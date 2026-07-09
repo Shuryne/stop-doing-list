@@ -11,8 +11,8 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/components/ui/toggle-group";
-import { SectionLabel } from "@/components/editor/SectionLabel";
 import { useShallow } from "zustand/react/shallow";
+import { SectionLabel } from "@/components/editor/SectionLabel";
 import { useEditorStore } from "@/lib/store";
 import { RATIO_LIST, RATIOS } from "@/lib/ratios";
 import { framesForOrientation, type FrameId } from "@/lib/frames";
